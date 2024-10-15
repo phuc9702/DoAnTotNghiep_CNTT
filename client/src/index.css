@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=LXGW+WenKai+Mono+TC&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer base {
+  :root {
+    --radius: 0.5rem
+  }
+}
+html {
+  font-family: "LXGW WenKai Mono TC", monospace;
+}
+.text-shadow{
+  text-shadow:1px 1px 2px red, -1px 1px 2px red, 1px -1px 2px red, -1px -1px 2px red ;
+}

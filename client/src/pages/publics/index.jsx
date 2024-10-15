@@ -1,0 +1,5 @@
+export { default as PublicLayout } from "./PublicLayout"
+export { default as Homepage } from "./Homepage"
+export { default as News } from "./News"
+export { default as RentProperty } from "./Rentproperty"
+export { default as SoldProperty } from "./SoldProperty"
