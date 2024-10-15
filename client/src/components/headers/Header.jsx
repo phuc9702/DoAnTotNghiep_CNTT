@@ -52,7 +52,7 @@ const Header = () => {
                     </DialogHeader>
                 </DialogContent>
             </Dialog>
-            <Button size="lg" variant="outline">Đăng Tin</Button>
+            <Button size="lg" variant="outline">Đăng tin</Button>
         </div>
     </div>
     )
