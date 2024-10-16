@@ -5,6 +5,7 @@ import { FormInput } from "../forms"
 import { Form } from "@/components/ui/form"
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
+import { useGoogleLogin } from '@react-oauth/google'
 
 const formSchema = z.object({
     emailOrPhone: z.string().min(1, {message:"Trường này là bắt buộc."}),
@@ -26,6 +27,10 @@ const Login = () => {
         if(variant === "SIGNIN") setVariant("SIGNUP")
             else setVariant("SIGNIN")
     }
+    const handleSignInGoogle = useGoogleLogin({
+        onSuccess: tokenResponse => console.log(tokenResponse),
+        onError: orr => console.log(first)
+      });
     return(
         <div className="grid grid-cols-10 text-primary">
             <div className="col-span-4 grid place-content-center">
@@ -53,7 +58,7 @@ const Login = () => {
                         <p className="px-2 w-fit mx-auto bg-white text-sm text-primary">Hoặc</p>
                     </div>
                 </div>
-                <Button size="lg" variant="outline" className="w-full mb-4 " >
+                <Button onClick={handleSignInGoogle} size="lg" variant="outline" className="w-full mb-4 " >
                     <img src="/svg/google.svg" alt="Google" className="w-5 h-5 object-cover" />
                     <span>Đăng nhập bằng Google</span>
                 </Button>
