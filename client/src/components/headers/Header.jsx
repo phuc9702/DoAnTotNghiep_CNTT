@@ -45,7 +45,7 @@ const Header = () => {
                 <DialogTrigger asChild>
                 <Button className="bg-transparent text-store-900 hover:bg-transparent hover:underline">Đăng nhập / Đăng ký</Button>
                 </DialogTrigger>
-                <DialogContent isHideClose={true} className="min-w-[700px] p-0">
+                <DialogContent isHideClose={true} className="min-w-[800px] p-0">
                     <DialogHeader>
                         <DialogTitle></DialogTitle>
                         <Login/>
