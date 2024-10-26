@@ -1,8 +1,16 @@
 const { Sequelize } = require('sequelize');
 
-const sequelize = new Sequelize('dbs', 'postgres', 'pnphuc', {
-  host: 'localhost',
-  dialect: "postgres",
+const dbName = process.env.DB_NAME
+const dbUsername = process.env.DB_USER
+const dbPassword = process.env.DB_PASSWORD
+const dbHost = process.env.DB_HOST
+const dbDialect = process.env.DB_DIALECT
+
+
+const sequelize = new Sequelize(dbName, dbUsername, dbPassword, {
+  host: dbHost,
+  dialect: dbDialect,
+  logging: false,
 });
 
 const connectionDatabase = async() => {

@@ -4,7 +4,7 @@ CREATE TABLE `users` (
   `fullname` string,
   `phone` string COMMENT 'để number ko lưu số không được',
   `emailVerified` bool,
-  `phoneVerìfied` bool,
+  `phoneVerified` bool,
   `password` string,
   `avatar` string,
   `balance` bigint,

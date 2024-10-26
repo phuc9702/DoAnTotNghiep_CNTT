@@ -19,7 +19,7 @@ const navigations = [
     },
     {
         id:3, 
-        name:"Tin Tức",
+        name:"tin tức",
         pathname: pathnames.publics.soldProperty,
         hasSub: false,
         
