@@ -5,7 +5,7 @@ const { enumData } = require('../utils/contansts');
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('posts', {
+    await queryInterface.createTable('Posts', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -71,7 +71,7 @@ module.exports = {
       },
       isFurniture: {
         type: Sequelize.BOOLEAN,
-        defaultValue:0
+        defaultValue:false
       },
       listingType: {
         type: Sequelize.ENUM,
@@ -98,7 +98,7 @@ module.exports = {
         allowNull: false
       },
       expiredPost: {
-        type: Sequelize.expiredDate,
+        type: Sequelize.DATE,
         allowNull: false
       },
       status: {
@@ -123,6 +123,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('posts');
+    await queryInterface.dropTable('Posts');
   }
 };

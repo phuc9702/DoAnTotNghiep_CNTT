@@ -48,7 +48,7 @@ module.exports = {
       },
       resetPwExpiry: {
         type: Sequelize.DATE,
-        allowNull:false
+        allowNull:true
       },
       idPricing: {
         type: Sequelize.INTEGER,

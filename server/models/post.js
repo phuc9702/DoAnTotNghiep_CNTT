@@ -4,7 +4,7 @@ const {
 } = require('sequelize');
 const { enumData } = require('../utils/contansts');
 module.exports = (sequelize, DataTypes) => {
-  class post extends Model {
+  class Post extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  post.init({
+  Post.init({
     idPost: DataTypes.STRING,
     title: DataTypes.STRING,
     address: DataTypes.STRING,
@@ -56,7 +56,7 @@ module.exports = (sequelize, DataTypes) => {
     idUser: DataTypes.INTEGER,
   }, {
     sequelize,
-    modelName: 'post',
+    modelName: 'Post',
   });
-  return post;
+  return Post;
 };
