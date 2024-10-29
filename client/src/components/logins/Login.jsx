@@ -6,6 +6,9 @@ import { Form } from "@/components/ui/form"
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
 import { useGoogleLogin } from '@react-oauth/google'
+import { apiGetCredentialsFromAccessToken } from "@/apis/external"
+import { apiCheckNewUser } from "@/apis/auth"
+import SetupPassword from "./SetupPassword.jsx"
 
 const formSchema = z.object({
     emailOrPhone: z.string().min(1, {message:"Trường này là bắt buộc."}),
@@ -23,20 +26,33 @@ const Login = () => {
         }
     })
     const [variant, setVariant] = useState("SIGNIN")
+    const [isSetupPassword, setIsSetupPassword] = useState(false)
     const toggleVariant = () => {
         if(variant === "SIGNIN") setVariant("SIGNUP")
             else setVariant("SIGNIN")
     }
     const handleSignInGoogle = useGoogleLogin({
-        onSuccess: tokenResponse => console.log(tokenResponse),
-        onError: orr => console.log(first)
+        onSuccess: async (tokenResponse) => {
+            const response = await apiGetCredentialsFromAccessToken(tokenResponse.access_token)
+            if(response.status === 200){
+                const user = await apiCheckNewUser(response.data.email)
+
+                if(user.data.hasUser){
+                    //redirect home + save accessToken
+                    
+                }else{
+                    setIsSetupPassword(true)
+                }
+            }
+        },
+        onError: (err) => console.log(err)
       });
     return(
         <div className="grid grid-cols-10 text-primary">
             <div className="col-span-4 grid place-content-center">
                 <img src="/jpg/banner-login.jpg" alt="Login" className="w-full object-contain"></img>
             </div>
-            <div className="col-span-6 p-8">
+            {!isSetupPassword && <div className="col-span-6 p-8">
                 <p className="font-bold text-base">Xin chào bạn</p>
                 <p className="font-bold text-2xl">{variant === 'SIGNIN' ? "Đăng nhập để tiếp tục":"Đăng ký tài khoản mới"}</p>
                 <Form {...form}>
@@ -67,7 +83,8 @@ const Login = () => {
                     <span onClick={toggleVariant} className="text-red-600 font-bold cursor-pointer hover:underline">{variant ==="SIGNIN" ? " Đăng ký":"Đăng nhập"}</span>
                     <span> tại đây</span>
                 </p>
-            </div>
+            </div>}
+            {isSetupPassword && <SetupPassword/>}
         </div>
     )
 }

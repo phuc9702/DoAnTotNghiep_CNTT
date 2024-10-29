@@ -1,7 +1,8 @@
 const asyncHandler = require('express-async-handler')
 const db = require('../models')
 const brcypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
+const { where } = require('sequelize');
 
 const hasPassword = password => brcypt.hashSync(password, brcypt.genSaltSync(10));
 module.exports={
@@ -28,4 +29,15 @@ module.exports={
         
         })
     }),
+
+    checkNewUserFromEmail: asyncHandler(async(req,res) => {
+        const  {email} = req.params // lay email
+
+        const user = await db.User.findOne({where:{email}})//kiem tra email
+
+        return res.json({
+            success: true,
+            hasUser: !!user,
+        })
+    })
 }
