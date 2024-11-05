@@ -1,5 +1,5 @@
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from "@/components/ui/navigation-menu"
-import { Fragment } from "react"
+import { Fragment, useCallback, useState } from "react"
 import {Link} from "react-router-dom"
 import navigations from "./navigations"
 import { naviItemCn } from "@/lib/className"
@@ -9,6 +9,13 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import Login from "../logins/login"
 
 const Header = () => {
+
+    const [isShowDialog, setIsShowDialog] = useState(false)
+
+    const onClose = useCallback(()=> {
+        setIsShowDialog(false)
+    },[])
+
     return (
     <div className="h-24 p-4 flex shadow items-center justify-between ">
         <div className="flex items-center gap-6">
@@ -41,14 +48,14 @@ const Header = () => {
         </NavigationMenu>
         </div>
         <div className="flex items-center gap-3">
-            <Dialog>
+            <Dialog onOpenChange={setIsShowDialog} open={isShowDialog} >
                 <DialogTrigger asChild>
-                <Button className="bg-transparent text-store-900 hover:bg-transparent hover:underline">Đăng nhập / Đăng ký</Button>
+                <Button onClick={() => setIsShowDialog(true)} className="bg-transparent text-store-900 hover:bg-transparent hover:underline">Đăng nhập / Đăng ký</Button>
                 </DialogTrigger>
-                <DialogContent isHideClose={true} className="min-w-[800px] p-0">
+                <DialogContent isHideClose={false} className="min-w-[800px] p-0">
                     <DialogHeader>
                         <DialogTitle></DialogTitle>
-                        <Login/>
+                        <Login onClose={onClose}/>
                     </DialogHeader>
                 </DialogContent>
             </Dialog>

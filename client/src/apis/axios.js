@@ -22,6 +22,7 @@ export default axiosInstance
 export const endpoints = {
     auth:{
         getCredentialFronAccessToken:"https://www.googleapis.com/oauth2/v1/userinfo?access_token=",
-        checkNewUser:"/auth/has-user/"
+        checkNewUser:"/auth/has-user/",
+        signInWithGoogle:"/auth/google"
     },
 }

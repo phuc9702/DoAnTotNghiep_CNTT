@@ -9,6 +9,9 @@ import { useGoogleLogin } from '@react-oauth/google'
 import { apiGetCredentialsFromAccessToken } from "@/apis/external"
 import { apiCheckNewUser } from "@/apis/auth"
 import SetupPassword from "./SetupPassword.jsx"
+import useMeStore from "@/zustand/useMeStore"
+import PropTypes from 'prop-types'
+import { toast } from "sonner"
 
 const formSchema = z.object({
     emailOrPhone: z.string().min(1, {message:"Trường này là bắt buộc."}),
@@ -16,7 +19,7 @@ const formSchema = z.object({
     password: z.string().min(6, {message:"Mật khẩu tối thiểu 6 kí tự."})
 })
 
-const Login = () => {
+const Login = ({onClose}) => {
     const form = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -27,6 +30,9 @@ const Login = () => {
     })
     const [variant, setVariant] = useState("SIGNIN")
     const [isSetupPassword, setIsSetupPassword] = useState(false)
+    const {setGoogleData} = useMeStore()
+    const {setToken} = useMeStore()
+
     const toggleVariant = () => {
         if(variant === "SIGNIN") setVariant("SIGNUP")
             else setVariant("SIGNIN")
@@ -34,18 +40,31 @@ const Login = () => {
     const handleSignInGoogle = useGoogleLogin({
         onSuccess: async (tokenResponse) => {
             const response = await apiGetCredentialsFromAccessToken(tokenResponse.access_token)
+
             if(response.status === 200){
+                setGoogleData({
+                    email: response.data.email,
+                    avatar: response.data.picture,
+                    fullname: response.data.name,
+                    emailVerified:response.data.verified_email
+                })
                 const user = await apiCheckNewUser(response.data.email)
 
                 if(user.data.hasUser){
                     //redirect home + save accessToken
+                    setToken(user.data.accessToken)
+                    toast.success(user.data.msg)
+                    onClose()
                     
                 }else{
                     setIsSetupPassword(true)
                 }
             }
         },
-        onError: (err) => console.log(err)
+        onError: (err) => {
+            console.log(err)
+            toast.error("Đăng nhập không thành công.")
+        }
       });
     return(
         <div className="grid grid-cols-10 text-primary">
@@ -84,8 +103,11 @@ const Login = () => {
                     <span> tại đây</span>
                 </p>
             </div>}
-            {isSetupPassword && <SetupPassword/>}
+            {isSetupPassword && <SetupPassword onClose={onClose}/>}
         </div>
     )
 }
 export default Login
+Login.propTypes = {
+    onClose: PropTypes.func.isRequired,
+}
