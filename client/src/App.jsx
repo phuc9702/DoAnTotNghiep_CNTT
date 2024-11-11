@@ -1,8 +1,14 @@
-import React from "react";
+import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import { Toaster } from "./components/ui/sonner";
+import useMeStore from "./zustand/useMeStore";
 
 const App = () => {
+  const {token, getMe} = useMeStore()
+
+  useEffect(() => {
+    if(token) getMe()
+  }, [token])
   return (
 
     <main className="text-primary">

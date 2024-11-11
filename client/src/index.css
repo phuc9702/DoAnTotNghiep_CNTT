@@ -6,6 +6,15 @@
   :root {
     --radius: 0.5rem
   }
+  .hover-text-glow {
+    transition: all 0.3s ease-in-out;
+  }
+
+  .hover-text-glow:hover {
+    text-shadow: 0 0 3px rgba(255, 0, 0, 0.8),  /* Bóng mờ gần */
+                 0 0 5px rgba(255, 0, 0, 0.7),  /* Bóng mờ trung bình */
+                 0 0 8px rgba(255, 0, 0, 0.6);  /* Bóng mờ xa */
+  }
 }
 html {
   font-family: "LXGW WenKai Mono TC", monospace;

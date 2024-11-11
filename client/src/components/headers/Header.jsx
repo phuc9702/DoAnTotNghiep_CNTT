@@ -2,15 +2,19 @@ import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMe
 import { Fragment, useCallback, useState } from "react"
 import {Link} from "react-router-dom"
 import navigations from "./navigations"
-import { naviItemCn } from "@/lib/className"
+import { naviItemCn, resetOutline } from "@/lib/className"
 import { cn } from "@/lib/utils"
 import { Button } from "../ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import Login from "../logins/login"
+import useMeStore from "@/zustand/useMeStore"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu"
+import menu from "./menu"
 
 const Header = () => {
 
     const [isShowDialog, setIsShowDialog] = useState(false)
+    const {me} = useMeStore()
 
     const onClose = useCallback(()=> {
         setIsShowDialog(false)
@@ -19,7 +23,7 @@ const Header = () => {
     return (
     <div className="h-24 p-4 flex shadow items-center justify-between ">
         <div className="flex items-center gap-6">
-        <Link to="/" className="text-5xl text-shadow text-red-200  tracking-widest bor font-bold  " >pnphuc0972
+        <Link to="/" className="text-5xl text-shadow text-red-200  tracking-widest bor font-bold hover-text-glow  " >pnphuc0972
         </Link>     
         <NavigationMenu>
             <NavigationMenuList>
@@ -48,7 +52,7 @@ const Header = () => {
         </NavigationMenu>
         </div>
         <div className="flex items-center gap-3">
-            <Dialog onOpenChange={setIsShowDialog} open={isShowDialog} >
+           {!me ? ( <Dialog onOpenChange={setIsShowDialog} open={isShowDialog} >
                 <DialogTrigger asChild>
                 <Button onClick={() => setIsShowDialog(true)} className="bg-transparent text-store-900 hover:bg-transparent hover:underline">Đăng nhập / Đăng ký</Button>
                 </DialogTrigger>
@@ -59,6 +63,21 @@ const Header = () => {
                     </DialogHeader>
                 </DialogContent>
             </Dialog>
+            ): (
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button className={resetOutline} variant="transparent">{me.fullname}</Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                        {menu.map(el => <DropdownMenuItem key ={el.id}>
+                            <Link className="flex items-center" to = {el.path}>
+                            {el.icon}
+                            {el.label}
+                            </Link>
+                        </DropdownMenuItem>)}
+                    </DropdownMenuContent>
+                </DropdownMenu>
+            )}
             <Button size="lg" variant="outline">Đăng tin</Button>
         </div>
     </div>

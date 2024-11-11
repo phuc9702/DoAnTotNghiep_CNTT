@@ -5,11 +5,11 @@ const axiosInstance = axios.create({baseURL: import.meta.env.VITE_SERVER_URL})
 //---------------------------------------------------------------------------
 
 axiosInstance.interceptors.request.use((config) => {
-    const store = window.localStorage.getItem("pnphucv2/me")
+    const store = window.localStorage.getItem("pnphuc0972/me")
     if(store) {
         const parsedStore = JSON.parse(store)
-        if(parsedStore && parsedStore.state?.tokne){
-            config.headers.Authorization = `Bearer ${parsedStore.state?.tokne}`
+        if(parsedStore && parsedStore.state?.token){
+            config.headers.Authorization = `Bearer ${parsedStore.state?.token}`
         }
     }
     return config
@@ -25,4 +25,7 @@ export const endpoints = {
         checkNewUser:"/auth/has-user/",
         signInWithGoogle:"/auth/google"
     },
+    user: {
+        getMe: '/user/me'
+    }
 }

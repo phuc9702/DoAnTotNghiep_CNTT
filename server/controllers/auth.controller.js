@@ -39,7 +39,7 @@ module.exports={
 
         const user = await db.User.findOne({where:{email}})//kiem tra email
         let token = null
-        if(user) token = jwt.sign({uid:user.id}, process.env.SECRET_JWT_KEY, {expiresIn:"7d"})
+        if(user) token = jwt.sign({uid: user.id}, process.env.SECRET_JWT_KEY, {expiresIn:"7d"})
 
         return res.json({
             success: true,
