@@ -10,11 +10,12 @@ import Login from "../logins/login"
 import useMeStore from "@/zustand/useMeStore"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu"
 import menu from "./menu"
+import { LogOut } from "lucide-react"
 
 const Header = () => {
 
     const [isShowDialog, setIsShowDialog] = useState(false)
-    const {me} = useMeStore()
+    const {me, logout} = useMeStore()
 
     const onClose = useCallback(()=> {
         setIsShowDialog(false)
@@ -69,16 +70,20 @@ const Header = () => {
                         <Button className={resetOutline} variant="transparent">{me.fullname}</Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
-                        {menu.map(el => <DropdownMenuItem key ={el.id}>
+                        {menu.map((el) =>( <DropdownMenuItem key ={el.id}>
                             <Link className="flex items-center" to = {el.path}>
                             {el.icon}
                             {el.label}
                             </Link>
-                        </DropdownMenuItem>)}
+                        </DropdownMenuItem>))}
+                        <DropdownMenuItem onClick={() => logout()} className="flex items-center gap-2">
+                            <LogOut size="14" />
+                            <span>Đăng xuất</span>
+                        </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
             )}
-            <Button size="lg" variant="outline">Đăng tin</Button>
+            <Button size="lg" variant="outline" className="text-red-500 border-red-500 hover:bg-red-100 hover:text-red-700">Đăng tin</Button>
         </div>
     </div>
     )

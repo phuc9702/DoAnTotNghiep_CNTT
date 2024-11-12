@@ -18,7 +18,8 @@ const useMeStore = create(
                 }else{
                     return set(() => ({me: null, token: null }))
                 }
-            } 
+            },
+            logout : () => set(() => ({token: null, me:null }))
         }), 
         {
             name: 'pnphuc0972/me',
