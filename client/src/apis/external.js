@@ -6,3 +6,9 @@ export const apiGetCredentialsFromAccessToken = (accsessToken) =>
         method:"get",
         url: endpoints.auth.getCredentialFronAccessToken + accsessToken,
     })
+
+export const apiGetProvinces = () =>
+    axios({
+        method:'get',
+        url: endpoints.external.getProvince,
+    })

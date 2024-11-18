@@ -1,30 +1,68 @@
-import React, { useState } from 'react'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs'
+import React, { useState } from "react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
+import { Search as SearchIcon } from "lucide-react";
+import { Button } from "../ui/button";
+import SelectProvince from "./SelectProvince";
+import { cn } from "@/lib/utils";
 
-
-const postTypes = ['Cho thuê', 'Bán'].map((el, idx) => ({id: idx, label:el, value:el }))
+const postTypes = ["Cho thuê", "Bán"].map((el, idx) => ({
+  id: idx,
+  label: el,
+  value: el,
+}));
 const Search = () => {
-    const [activedTab, setActivedTab] = useState("Cho thuê")
-    
-    return (
-        <div className='bg-black/40 absolute top-0 bottom-0 left-10 text-slate-50 flex items-center justify-center right-10'>
-            <div className='w-[945px] max-w-[90%]'> 
-                <Tabs onValueChange={(value) => setActivedTab(value)} value={activedTab}>
-                    <TabsList>
-                        {postTypes.map((el) =>(
-                            <TabsTrigger value={el.value} key={el.id}>
-                                {el.label}
-                            </TabsTrigger>
-                        ))} 
-                    </TabsList>
-                    {postTypes.map((el) => (
-                        <TabsContent className="bg-black/60 h-40 rounded-md space-y-4 text-sm" value={el.value} key={el.id}>
-                            {el.label}
-                        </TabsContent>))}
-                </Tabs>
-            </div>
-        </div>
-    )
-}
+  const [activedTab, setActivedTab] = useState("Cho thuê");
+  const [isShowSelectProvince, setIsShowSelectProvince] = useState(false);
 
-export default Search
+  return (
+    <div className=" absolute top-0 bottom-0 left-10 text-slate-50 flex items-center justify-center right-10">
+      <div className="w-[945px] max-w-[90%]">
+        <Tabs
+          className="space-y-0"
+          onValueChange={(value) => setActivedTab(value)}
+          value={activedTab}
+        >
+          <TabsList className="rounded-b-none bg-transparent p-0">
+            {postTypes.map((el) => (
+              <TabsTrigger
+                className="data-[state=active]:bg-black/60 min-w-[81px] rounded-md rounded-b-none data-[state=active]:text-slate-50 h-full bg-slate-50 text-slate-950"
+                value={el.value}
+                key={el.id}
+              >
+                {el.label}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+          {postTypes.map((el) => (
+            <TabsContent
+              className="bg-black/60 h-40 rounded-md rounded-tl-none p-4 space-y-4 text-sm"
+              value={el.value}
+              key={el.id}
+            >
+              <div
+                onClick={() => setIsShowSelectProvince(true)}
+                className={cn(
+                  "flex relative  items-center justify-between bg-slate-50 rounded-md px-[60px] py-2",
+                  isShowSelectProvince && "rounded-b-none"
+                )}
+              >
+                <p className="  text-sm flex items-center gap-2 font-semibold text-slate-900 ">
+                  <SearchIcon size={20} color="#222222" />
+                  <span>Trên toàn quốc</span>
+                </p>
+                <Button>Tìm kiếm</Button>
+                {isShowSelectProvince && (
+                  <SelectProvince
+                    onClose={() => setIsShowSelectProvince(false)}
+                  />
+                )}
+              </div>
+            </TabsContent>
+          ))}
+        </Tabs>
+      </div>
+    </div>
+  );
+};
+
+export default Search;

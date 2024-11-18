@@ -27,5 +27,10 @@ export const endpoints = {
     },
     user: {
         getMe: '/user/me'
+    },
+    external:{
+        getProvince:"https://vietnam-administrative-division-json-server-swart.vercel.app/province",
+        getDistrictsFromIdProvince:"https://vietnam-administrative-division-json-server-swart.vercel.app/district/?idProvince=",
+        getWardsFromIdDistrict:"https://vietnam-administrative-division-json-server-swart.vercel.app/commune/?idDistrict="
     }
 }
