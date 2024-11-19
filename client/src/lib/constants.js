@@ -23,7 +23,6 @@ export const postRentTypes =[
     'Nhà riêng',
     'Nhà phố thương mại',
     'Biệt thự',
-    'Đất nền',
     'Bán đất',
     'Trang trại',
     'Khu nghỉ dưỡng',

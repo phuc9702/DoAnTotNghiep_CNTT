@@ -5,7 +5,9 @@ import { Button } from "../ui/button";
 import SelectProvince from "./SelectProvince";
 import { cn } from "@/lib/utils";
 import PopoverRange from "./PopoverRange";
-import { prices, sizes } from "@/lib/constants";
+import { postRentTypes, postSoldTypes, prices, sizes } from "@/lib/constants";
+import PopoverCheckbox from "./PopoverCheckbox";
+import { late } from "zod";
 
 const postTypes = ["Cho thuê", "Bán"].map((el, idx) => ({
   id: idx,
@@ -72,7 +74,21 @@ const Search = () => {
                   options={sizes}
                   label="Diện tích"
                 />
-                <div>Property Types</div>
+                <PopoverCheckbox
+                  label="Loại tin đăng"
+                  options={
+                    activedTab === "Bán"
+                      ? postSoldTypes.map((el) => ({
+                          id: el.pathname,
+                          label: el.name,
+                        }))
+                      : postRentTypes.map((el) => ({
+                          id: el.pathname,
+                          label: el.name,
+                        }))
+                  }
+                  name="postType"
+                />
               </div>
             </TabsContent>
           ))}
