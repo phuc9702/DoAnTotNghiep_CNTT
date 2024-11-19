@@ -4,6 +4,8 @@ import { Search as SearchIcon } from "lucide-react";
 import { Button } from "../ui/button";
 import SelectProvince from "./SelectProvince";
 import { cn } from "@/lib/utils";
+import PopoverRange from "./PopoverRange";
+import { prices, sizes } from "@/lib/constants";
 
 const postTypes = ["Cho thuê", "Bán"].map((el, idx) => ({
   id: idx,
@@ -25,7 +27,7 @@ const Search = () => {
           <TabsList className="rounded-b-none bg-transparent p-0">
             {postTypes.map((el) => (
               <TabsTrigger
-                className="data-[state=active]:bg-black/60 min-w-[81px] rounded-md rounded-b-none data-[state=active]:text-slate-50 h-full bg-slate-50 text-slate-950"
+                className="data-[state=active]:bg-black/60 min-w-[81px] first:rounded-tl-md last:rounded-tr-md data-[state=active]:text-slate-50 h-full bg-slate-50 text-slate-950"
                 value={el.value}
                 key={el.id}
               >
@@ -56,6 +58,21 @@ const Search = () => {
                     onClose={() => setIsShowSelectProvince(false)}
                   />
                 )}
+              </div>
+              <div className="grid grid-cols-3 gap-4">
+                <PopoverRange
+                  name="price"
+                  _name="_price"
+                  options={prices}
+                  label="Mức Giá"
+                />
+                <PopoverRange
+                  name="size"
+                  _name="_size"
+                  options={sizes}
+                  label="Diện tích"
+                />
+                <div>Property Types</div>
               </div>
             </TabsContent>
           ))}
