@@ -21,7 +21,7 @@ const buttonVariants = cva(
           "hover:bg-stone-100 hover:text-stone-900 dark:hover:bg-stone-800 dark:hover:text-stone-50",
         link: "text-stone-900 underline-offset-4 hover:underline dark:text-stone-50",
         transparent:
-          "bg-transparent hover:bg-transparent text-main hover:underline",
+          "bg-transparent hover:bg-transparent text-red-500 hover:underline",
       },
       size: {
         default: "h-10 px-4 py-2",
