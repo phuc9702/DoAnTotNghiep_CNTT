@@ -17,13 +17,13 @@ const BannerSlider = () => {
     }, 3000);
   };
 
-  /*useEffect(() => {
+  useEffect(() => {
     if (!api) return;
     startAutoScroll();
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
-  }, [api]);*/
+  }, [api]);
 
   return (
     <div className="w-full">

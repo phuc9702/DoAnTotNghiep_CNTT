@@ -24,7 +24,7 @@ const UserBox = () => {
       <div>
         <p className="font-bold mb-2">{me.fullname}</p>
         <p className="flex items-center gap-2">
-          <san>Điểm:</san>
+          <span>Điểm:</span>
           <span>{me.score}</span>
           <CustomTooltip
             trigger={<Info size={14} />}
