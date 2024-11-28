@@ -5,39 +5,39 @@ const { enumData } = require('../utils/contansts');
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Pricings', {
+    await queryInterface.createTable('Gias', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
+      tenGia: {
         type: Sequelize.ENUM,
         values:enumData.pricings,
       },
-      isDisplayImmedialy: {
+      hienThiNgay: {
         type: Sequelize.BOOLEAN
       },
-      isShowDirection: {
+      hienThiThongTin: {
         type: Sequelize.BOOLEAN
       },
-      priority: {
+      uuTien: {
         type: Sequelize.INTEGER
       },
-      requireScore: {
+      diemCanCo: {
         type: Sequelize.INTEGER
       },
-      requireScoreNextLevel: {
+      diemCanLenCap: {
         type: Sequelize.INTEGER
       },
-      price: {
+      gia: {
         type: Sequelize.BIGINT
       },
-      expriredDay: {
+      thoiGianHetHan: {
         type: Sequelize.INTEGER
       },
-      imageUrl: {
+      duongDanHinhAnh: {
         type: Sequelize.STRING
       },
       createdAt: {
@@ -51,6 +51,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Pricings');
+    await queryInterface.dropTable('Gias');
   }
 };

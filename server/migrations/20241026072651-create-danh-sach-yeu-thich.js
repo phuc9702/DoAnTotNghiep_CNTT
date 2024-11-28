@@ -2,24 +2,24 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Wishlists', {
+    await queryInterface.createTable('Danh_sach_yeu_thichs', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      idUser: {
+      idNguoi_dung: {
         type: Sequelize.INTEGER,
         references:{
-          model:"Users",
+          model:"Nguoi_dungs",
           key:"id",
         }
       },
-      idPost: {
+      idBai_dang: {
         type: Sequelize.INTEGER,
         references:{
-          model:"Posts",
+          model:"Bai_dangs",
           key:"id",
         }
       },
@@ -34,6 +34,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Wishlists');
+    await queryInterface.dropTable('Danh_sach_yeu_thichs');
   }
 };

@@ -2,58 +2,58 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Users', {
+    await queryInterface.createTable('Nguoi_dungs', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      fullname: {
+      hoTen: {
         type: Sequelize.STRING,
         allowNull:false
       },
-      phone: {
+      dienThoai: {
         type: Sequelize.STRING
       },
       email: {
         type: Sequelize.STRING
       },
-      emailVerified: {
+      emailXacThuc: {
         type: Sequelize.BOOLEAN,
         defaultValue:false
       },
-      phoneVerified: {
+      dienThoaiXacThuc: {
         type: Sequelize.BOOLEAN,
         defaultValue:false
       },
-      password: {
+      matKhau: {
         type: Sequelize.STRING,
         allowNull:false
       },
-      avatar: {
+      anhDaiDien: {
         type: Sequelize.STRING,
       },
-      balance: {
+      soDu: {
         type: Sequelize.BIGINT,
         defaultValue:0
       },
-      score: {
+      diem: {
         type: Sequelize.STRING,
         defaultValue:0
       },
-      resetPwToken: {
+      maKhoiPhucMatKhau: {
         type: Sequelize.STRING,
         allowNull:true
       },
-      resetPwExpiry: {
+      hanDungMaDatLaiMatKhau: {
         type: Sequelize.DATE,
         allowNull:true
       },
-      idPricing: {
+      idGia: {
         type: Sequelize.INTEGER,
         references:{
-          model:"Pricings",
+          model:"Gias",
           key:"id"
         },
       },
@@ -68,6 +68,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Users');
+    await queryInterface.dropTable('Nguoi_dungs');
   }
 };

@@ -32,7 +32,7 @@ import { LogOut } from "lucide-react";
 
 const Header = () => {
   const [isShowDialog, setIsShowDialog] = useState(false);
-  const { me, logout } = useMeStore();
+  const { me, logout } = useMeStore(); // Truyền vào store để lấy thông tin người dùng
 
   const onClose = useCallback(() => {
     setIsShowDialog(false);
@@ -104,7 +104,8 @@ const Header = () => {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button className={resetOutline} variant="transparent">
-                {me.fullname}
+                {/* Hiển thị thông tin từ CSDL: Tên người dùng */}
+                {me.hoTen || me.email || "Người dùng"}
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
@@ -117,7 +118,7 @@ const Header = () => {
                 </DropdownMenuItem>
               ))}
               <DropdownMenuItem
-                onClick={() => logout()}
+                onClick={() => logout()} // Đăng xuất người dùng
                 className="flex items-center gap-2"
               >
                 <LogOut size="14" />

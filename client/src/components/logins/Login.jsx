@@ -46,7 +46,7 @@ const Login = ({ onClose }) => {
       if (response.status === 200) {
         setGoogleData({
           email: response.data.email,
-          avatar: response.data.picture,
+          anhDaiDien: response.data.picture,
           fullname: response.data.name,
           emailVerified: response.data.verified_email,
         });

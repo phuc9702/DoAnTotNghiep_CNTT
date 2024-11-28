@@ -6,14 +6,31 @@ import {
   CollapsibleTrigger,
 } from "../ui/collapsible";
 import { ChevronDown, ChevronRight } from "lucide-react";
-import menu from "../headers/menu";
 import { NavLink, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import useMeStore from "@/zustand/useMeStore"; // Import store người dùng
+import menu from "../headers/menu";
 
 const NavMenu = () => {
-  const [userMenu, setUserMenu] = useState(menu);
+  const { me } = useMeStore(); // Lấy thông tin người dùng từ store
+  const [userMenu, setUserMenu] = useState([]);
   const [activeTabs, setActivetabs] = useState([]);
   const location = useLocation();
+
+  // Lọc menu dựa trên quyền của người dùng
+  useEffect(() => {
+    if (me) {
+      // Giả sử userMenu được tạo từ quyền của người dùng (me.role hoặc quyền)
+      const filteredMenu = menu.filter((item) => {
+        if (item.requiredRole) {
+          return item.requiredRole === me.role; // Kiểm tra quyền
+        }
+        return true; // Hiển thị menu nếu không yêu cầu quyền
+      });
+      setUserMenu(filteredMenu);
+    }
+  }, [me]); // Cập nhật menu khi thông tin người dùng thay đổi
+
   const handleTabsActive = (idTab) => {
     const hasTab = activeTabs.some((el) => el === idTab);
     if (hasTab) {
@@ -22,6 +39,7 @@ const NavMenu = () => {
       setActivetabs((prev) => [...prev, idTab]);
     }
   };
+
   useEffect(() => {
     const activeTabs = userMenu.find((el) =>
       el.subs?.some((item) => item.path === location.pathname)
@@ -33,6 +51,7 @@ const NavMenu = () => {
       ]);
     }
   }, [location.pathname, userMenu]);
+
   return (
     <div>
       {userMenu.map((el) => (

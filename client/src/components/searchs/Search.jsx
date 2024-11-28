@@ -17,6 +17,10 @@ const postTypes = ["Cho thuê", "Bán"].map((el, idx) => ({
 const Search = () => {
   const [activedTab, setActivedTab] = useState("Cho thuê");
   const [isShowSelectProvince, setIsShowSelectProvince] = useState(false);
+  const handleSave = (selectedOptions) => {
+    console.log("Selected Options:", selectedOptions);
+    // Xử lý hoặc lưu các tùy chọn đã chọn tại đây
+  };
 
   return (
     <div className=" absolute top-0 bottom-0 left-10 text-slate-50 flex items-center justify-center right-10">
@@ -88,6 +92,7 @@ const Search = () => {
                         }))
                   }
                   name="postType"
+                  onSave={handleSave}
                 />
               </div>
             </TabsContent>
