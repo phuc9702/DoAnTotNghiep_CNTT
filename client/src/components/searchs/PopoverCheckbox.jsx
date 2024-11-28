@@ -6,29 +6,50 @@ import { X } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
 import { Checkbox } from "../ui/checkbox";
+import { apiCheckNewUser } from "@/apis/auth"; // API kiểm tra người dùng trong cơ sở dữ liệu
 
-const PopoverCheckbox = ({ label, options = [], name }) => {
+const PopoverCheckbox = ({ label, options = [], name, onSave }) => {
   const triggerRef = useRef(null);
   const [widthContent, setWidthContent] = useState(0);
+
   const from = useForm({
     defaultValues: {
-      [name]: [""],
+      [name]: [], // Giữ giá trị mặc định là mảng rỗng
     },
   });
+
   useEffect(() => {
     if (triggerRef.current) {
       const width = triggerRef.current.getBoundingClientRect()?.width;
       setWidthContent(width);
     }
   }, []);
+
+  const handleSave = async (data) => {
+    // Gửi thông tin đã chọn cho server
+    const selectedValues = data[name];
+    try {
+      const response = await apiCheckNewUser(selectedValues); // API kiểm tra người dùng từ CSDL
+      if (response.data.exists) {
+        // Nếu người dùng tồn tại, thực hiện hành động thích hợp
+        onSave(response.data.user);
+      } else {
+        // Nếu người dùng không tồn tại, gửi thông báo lỗi
+        toast.error("Người dùng không tồn tại");
+      }
+    } catch (error) {
+      toast.error("Đã có lỗi xảy ra");
+    }
+  };
+
   return (
     <Popover>
-      <PopoverTrigger ref={triggerRef} className="border  rounded-md py-2 px-4">
+      <PopoverTrigger ref={triggerRef} className="border rounded-md py-2 px-4">
         {label}
       </PopoverTrigger>
       <PopoverContent
         style={{ width: `${widthContent}px` }}
-        className="p-0 relative h-[364px] "
+        className="p-0 relative h-[364px]"
       >
         <div className="p-4 flex font-bold items-center justify-center border-b">
           <p>{label}</p>
@@ -78,16 +99,18 @@ const PopoverCheckbox = ({ label, options = [], name }) => {
           </Form>
         </div>
         <div className="flex items-center border-t p-4 h-[57px] justify-end">
-          <Button>Áp dụng</Button>
+          <Button onClick={from.handleSubmit(handleSave)}>Áp dụng</Button>
         </div>
       </PopoverContent>
     </Popover>
   );
 };
 
-export default PopoverCheckbox;
-PopoverCheckbox.prototype = {
+PopoverCheckbox.propTypes = {
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   options: PropTypes.array.isRequired,
+  onSave: PropTypes.func.isRequired, // Hàm để lưu lại dữ liệu sau khi áp dụng
 };
+
+export default PopoverCheckbox;

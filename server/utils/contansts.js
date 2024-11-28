@@ -27,5 +27,11 @@ module.exports = {
             "Nam",
             "Bắc",
         ]
-    }
+    },
+    pricings:[
+        {
+            name:"Thường",
+            hienThiNgay:true
+        }
+    ]
 }

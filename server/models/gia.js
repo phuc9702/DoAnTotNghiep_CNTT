@@ -4,7 +4,7 @@ const {
 } = require('sequelize');
 const { enumData } = require('../utils/contansts');
 module.exports = (sequelize, DataTypes) => {
-  class Pricing extends Model {
+  class Gia extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -14,23 +14,23 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  Pricing.init({
-    name: {
+  Gia.init({
+    tenGia: {
       type: DataTypes.ENUM,
       values: enumData.pricings,
 
     },
-    isDisplayImmedialy: DataTypes.BOOLEAN,
-    isShowDirection: DataTypes.BOOLEAN,
-    priority: DataTypes.INTEGER,
-    requireScore: DataTypes.INTEGER,
-    requireScoreNextLevel: DataTypes.INTEGER,
-    price: DataTypes.BIGINT,
-    expriredDay: DataTypes.INTEGER,
-    imageUrl: DataTypes.STRING,
+    hienThiNgay: DataTypes.BOOLEAN,
+    hienThiThongTin: DataTypes.BOOLEAN,
+    uuTien: DataTypes.INTEGER,
+    diemCanCo : DataTypes.INTEGER,
+    diemCanLenCap : DataTypes.INTEGER,
+    gia: DataTypes.BIGINT,
+    thoiGianHetHan: DataTypes.INTEGER,
+    duongDanHinhAnh: DataTypes.STRING,
   }, {
     sequelize,
-    modelName: 'Pricing',
+    modelName: 'Gia',
   });
-  return Pricing;
+  return Gia;
 };
