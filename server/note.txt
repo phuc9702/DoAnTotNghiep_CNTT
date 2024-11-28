@@ -1,3 +1,3 @@
-npx sequelize-cli model:generate --name bat_dong_san --attributes firstName:string,lastName:string,email:string
+npx sequelize-cli model:generate --name gia --attributes firstName:string,lastName:string,email:string
 npx sequelize-cli db:migrate
 npx sequelize-cli seed:generate --name demo-user

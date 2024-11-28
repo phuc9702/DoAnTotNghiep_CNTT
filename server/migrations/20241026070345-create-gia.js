@@ -19,8 +19,8 @@ module.exports = {
       hienThiNgay: {
         type: Sequelize.BOOLEAN
       },
-      hienThiThongTin: {
-        type: Sequelize.BOOLEAN
+      chiTietCapDo: {
+        type: Sequelize.FLOAT
       },
       uuTien: {
         type: Sequelize.INTEGER
@@ -34,7 +34,7 @@ module.exports = {
       gia: {
         type: Sequelize.BIGINT
       },
-      thoiGianHetHan: {
+      ngayHetHan: {
         type: Sequelize.INTEGER
       },
       duongDanHinhAnh: {
@@ -42,11 +42,11 @@ module.exports = {
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       }
     });
   },

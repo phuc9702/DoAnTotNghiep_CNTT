@@ -18,19 +18,19 @@ module.exports = (sequelize, DataTypes) => {
     tenGia: {
       type: DataTypes.ENUM,
       values: enumData.pricings,
-
     },
     hienThiNgay: DataTypes.BOOLEAN,
-    hienThiThongTin: DataTypes.BOOLEAN,
+    chiTietCapDo: DataTypes.FLOAT,
     uuTien: DataTypes.INTEGER,
     diemCanCo : DataTypes.INTEGER,
     diemCanLenCap : DataTypes.INTEGER,
     gia: DataTypes.BIGINT,
-    thoiGianHetHan: DataTypes.INTEGER,
+    ngayHetHan: DataTypes.INTEGER,
     duongDanHinhAnh: DataTypes.STRING,
-  }, {
+  },  {
     sequelize,
     modelName: 'Gia',
+    tableName: 'Gias',
   });
   return Gia;
 };

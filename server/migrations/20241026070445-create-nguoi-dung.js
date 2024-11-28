@@ -56,6 +56,7 @@ module.exports = {
           model:"Gias",
           key:"id"
         },
+        defaultValue: 1,
       },
       createdAt: {
         allowNull: false,

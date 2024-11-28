@@ -27,7 +27,7 @@ const UserBox = () => {
         <div className="absolute bg-white rounded-full bottom-1 right-1">
           {/* Hiển thị badge (nếu có) */}
           <Image
-            src="/svg/badge-stock/diamond.svg" // Sửa đúng tên tệp hình ảnh badge
+            src={me.rGia?.duongDanHinhAnh}
             className="w-6 h-6 object-cover border-2 border-slate-200 p-1 rounded-full"
           />
         </div>
@@ -44,9 +44,13 @@ const UserBox = () => {
               <>
                 <p>
                   <span>Hạng tài khoản:</span>
-                  <span>{rank}</span> {/* Hiển thị hạng tài khoản */}
+                  <span className="text-red-600">{me.rGia?.tenGia}</span>{" "}
                 </p>
-                <p>Cần tích lũy 1000 điểm để lên level tiếp theo</p>
+                <p>
+                  Cần tích lũy thêm{" "}
+                  <span className="text-red-600">{me.rGia?.diemCanLenCap}</span>{" "}
+                  điểm để lên level tiếp theo
+                </p>
               </>
             }
           />
